@@ -2,14 +2,11 @@ include .env
 IMAGE_NAME=ynput/ayon-ash
 VERSION=$(shell python -c "from ash.version import __version__; print(__version__, end='')")
 
-print-version:
-	@echo "VERSION = $(VERSION)"
-
 run: build
 	docker run \
 		-d --rm \
-		--name ayon-docker-ash \
-		--hostname ash_worker_01 \
+		--name ayon-docker-ash-prod \
+		--hostname ash_prod_worker \
 		-v $(shell pwd)/ash:/ash/ash \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-e AYON_API_KEY=${AYON_API_KEY} \
@@ -18,7 +15,20 @@ run: build
 		--log-opt syslog-address=udp://localhost:514 \
 		$(IMAGE_NAME):latest
 
+	docker run \
+    		-d --rm \
+    		--name ayon-docker-ash-staging \
+    		--hostname ash_staging_worker \
+    		-v $(shell pwd)/ash:/ash/ash \
+    		-v /var/run/docker.sock:/var/run/docker.sock \
+    		-e AYON_API_KEY=${AYON_API_KEY} \
+    		-e AYON_SERVER_URL=${AYON_SERVER_URL} \
+    		--log-driver=syslog \
+    		--log-opt syslog-address=udp://localhost:514 \
+    		$(IMAGE_NAME):latest
+
 check:
+    @echo "VERSION = $(VERSION)"
 	sed -i "s/^version = \".*\"/version = \"$(VERSION)\"/" pyproject.toml
 	poetry run black .
 	poetry run ruff check .
