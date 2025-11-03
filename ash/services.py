@@ -145,7 +145,7 @@ class Services:
                 if target.startswith("/storage"):
                     volumes.append(bind_mount)
 
-            container = cls.spawn(
+            container: Container = cls.spawn(
                 image,
                 hostname,
                 environment,
