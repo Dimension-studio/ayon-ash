@@ -21,7 +21,7 @@ run: build
 check:
 	sed -i "s/^version = \".*\"/version = \"$(VERSION)\"/" pyproject.toml
 	poetry run black .
-	poetry run ruff --check .
+	poetry run ruff check .
 	poetry run mypy .
 
 build: check
