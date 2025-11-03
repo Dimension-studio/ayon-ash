@@ -15,7 +15,7 @@ run: build
 		--log-opt syslog-address=udp://localhost:514 \
 		$(IMAGE_NAME):latest
 
-check:
+check: checkenv
 	sed -i "s/^version = \".*\"/version = \"$(VERSION)\"/" pyproject.toml
 	poetry run black .
 	poetry run ruff check .
@@ -27,3 +27,6 @@ build: check
 dist: build
 	docker push ynput/ayon-ash:$(VERSION)
 	docker push ynput/ayon-ash:latest
+
+checkenv:
+    poetry install
