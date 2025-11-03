@@ -2,7 +2,8 @@ include .env
 IMAGE_NAME=ynput/ayon-ash
 VERSION=$(shell python -c "from ash.version import __version__; print(__version__, end='')")
 
-@echo "VERSION = $(VERSION)"
+print-version:
+	@echo "VERSION = $(VERSION)"
 
 run: build
 	docker run \
