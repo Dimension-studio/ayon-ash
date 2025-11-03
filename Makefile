@@ -29,4 +29,4 @@ dist: build
 	docker push ynput/ayon-ash:latest
 
 checkenv:
-    poetry install
+	poetry install
