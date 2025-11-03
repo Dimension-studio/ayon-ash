@@ -24,7 +24,7 @@ dependencies = [
 [dependency-groups]
 
 dev = [
-  "ruff >=0.11.0",
+  "ruff >=0.14.0",
   "mypy >=1.15.0",
   "black >=24.10.0",
   "types-requests >=2.31.0.20240311",
