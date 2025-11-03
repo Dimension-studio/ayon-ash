@@ -10,7 +10,7 @@ from ash.logging import logger
 class ServiceLog:
     container: Container | None = None
 
-    def __init__(self, service_name: str, container: Container) -> None:
+    def __init__(self, service_name: str, container: Container | None) -> None:
         self.service_name = service_name
         self.container = container
         threading.Thread(target=self._run, daemon=True).start()
