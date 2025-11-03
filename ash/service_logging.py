@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import threading
 
 from docker.models.containers import Container
@@ -42,7 +44,7 @@ class ServiceLogger:
     services: dict[str, ServiceLog] | None = None
 
     @classmethod
-    def add(cls, service_name: str, container: Container) -> None:
+    def add(cls, service_name: str, container: Container | None) -> None:
         if cls.services is None:
             cls.services = {}
         else:
