@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 import docker
@@ -96,7 +98,7 @@ class Services:
         # Check whether it is running already
         #
 
-        container: Container
+        container: Container | None
 
         for container in cls.client.containers.list():
             labels = container.labels
