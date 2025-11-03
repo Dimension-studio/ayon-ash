@@ -5,7 +5,7 @@ VERSION=$(shell python -c "from ash.version import __version__; print(__version_
 run: build
 	docker run \
 		-d --rm \
-		--name ayon-docker-ash-prod \
+		--name ayon-docker-prod-ash \
 		--hostname ash_prod_worker \
 		-v $(shell pwd)/ash:/ash/ash \
 		-v /var/run/docker.sock:/var/run/docker.sock \
@@ -14,21 +14,19 @@ run: build
 		--log-driver=syslog \
 		--log-opt syslog-address=udp://localhost:514 \
 		$(IMAGE_NAME):latest
-
 	docker run \
-    		-d --rm \
-    		--name ayon-docker-ash-staging \
-    		--hostname ash_staging_worker \
-    		-v $(shell pwd)/ash:/ash/ash \
-    		-v /var/run/docker.sock:/var/run/docker.sock \
-    		-e AYON_API_KEY=${AYON_API_KEY} \
-    		-e AYON_SERVER_URL=${AYON_SERVER_URL} \
-    		--log-driver=syslog \
-    		--log-opt syslog-address=udp://localhost:514 \
-    		$(IMAGE_NAME):latest
+    	-d --rm \
+    	--name ayon-docker-staging-ash \
+    	--hostname ash_staging_worker \
+    	-v $(shell pwd)/ash:/ash/ash \
+    	-v /var/run/docker.sock:/var/run/docker.sock \
+    	-e AYON_API_KEY=${AYON_API_KEY} \
+    	-e AYON_SERVER_URL=${AYON_SERVER_URL} \
+    	--log-driver=syslog \
+    	--log-opt syslog-address=udp://localhost:514 \
+    	$(IMAGE_NAME):latest
 
 check:
-    @echo "VERSION = $(VERSION)"
 	sed -i "s/^version = \".*\"/version = \"$(VERSION)\"/" pyproject.toml
 	poetry run black .
 	poetry run ruff check .
