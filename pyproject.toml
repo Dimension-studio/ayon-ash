@@ -26,6 +26,7 @@ dependencies = [
 dev = [
   "ruff >=0.11.0",
   "mypy >=1.15.0",
+  "black >=24.10.0",
   "types-requests >=2.31.0.20240311",
   "types-psutil>=7.0.0.20250516",
   "types-docker>=7.1.0.20250516",
