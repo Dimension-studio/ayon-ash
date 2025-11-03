@@ -7,7 +7,7 @@ print-version:
 
 run: build
 	docker run \
-		-it --rm \
+		-d --rm \
 		--name ayon-docker-ash \
 		--hostname ash_worker_01 \
 		-v $(shell pwd)/ash:/ash/ash \
