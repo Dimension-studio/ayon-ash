@@ -13,6 +13,7 @@ from ash.utils import slugify
 class Services:
     client: docker.DockerClient | None = None
     prefix: str = "io.ayon.service"
+    container: Container | None = None
 
     @classmethod
     def connect(cls) -> None:
@@ -95,7 +96,7 @@ class Services:
         # Check whether it is running already
         #
 
-        container = None
+        container: Container
 
         for container in cls.client.containers.list():
             labels = container.labels
@@ -145,7 +146,7 @@ class Services:
                 if target.startswith("/storage"):
                     volumes.append(bind_mount)
 
-            container: Container = cls.spawn(
+            container = cls.spawn(
                 image,
                 hostname,
                 environment,
