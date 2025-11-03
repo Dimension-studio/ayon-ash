@@ -1,6 +1,6 @@
 include .env
 IMAGE_NAME=ynput/ayon-ash
-VERSION=$(shell python -c "import ash; print(ash.__version__, end='')")
+VERSION=$(shell python -c "from ash.version import __version__; print(__version__, end='')")
 
 @echo "VERSION = $(VERSION)"
 
