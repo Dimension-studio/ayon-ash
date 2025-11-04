@@ -46,6 +46,7 @@ dev = [
 
 [tool.ruff]
 line-length = 88
+cache-dir = "/tmp/ruff_cache"
 
 [tool.ruff.format]
 indent-style = "space"
