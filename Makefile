@@ -18,7 +18,7 @@ run: build
 check: checkenv
 	sed -i "s/^version = \".*\"/version = \"$(VERSION)\"/" pyproject.toml
 	poetry run black .
-	poetry run ruff check .
+	poetry run ruff --cache-dir /tmp/ruff_cache check .
 	poetry run mypy .
 
 build: check
